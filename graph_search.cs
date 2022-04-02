@@ -11,7 +11,7 @@ namespace c_sharp_test
         private static Queue<char> queue = new Queue<char>();
         private static string result_dfs = "Path in depth from vertex D: ";
         private static string result_bfs = "Path in width from vertex F: ";
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Graph.Add('D', new char[] {'J', 'G', 'F'});
             Graph.Add('J', new char[] {'D'});
@@ -41,10 +41,10 @@ namespace c_sharp_test
 
 
         // Depth-first search
-        static void dfs(Dictionary<char, char[]> graph, char node)
+        private static void dfs(Dictionary<char, char[]> graph, char node)
         {
             // if not visited
-            if (!isVisited(node, visited_dfs))
+            if (!visited_dfs.Contains(node))
             {
                 visited_dfs.Add(node);
                 // visiting other nodes
@@ -56,7 +56,7 @@ namespace c_sharp_test
         }
 
         // Breadth-first search
-        static void bfs(Dictionary<char, char[]> graph, char node)
+        private static void bfs(Dictionary<char, char[]> graph, char node)
         {
             visited_bfs.Add(node);
             queue.Enqueue(node);
@@ -69,28 +69,13 @@ namespace c_sharp_test
                 // for every branch
                 foreach (char neighbor in Graph[s])
                 {
-                    if (!isVisited(neighbor, visited_bfs))
+                    if (!visited_bfs.Contains(neighbor))
                     {
                         visited_bfs.Add(neighbor);
                         queue.Enqueue(neighbor);
                     }
-                    
                 }
             }
-        }
-
-        // Check node visit status
-        static bool isVisited(char node, List<char> visited)
-        {
-            foreach (var element in visited)
-            {
-                if (node == element)
-                {
-                    return true;
-                }
-            }
-
-            return false;
         }
     }
 }
